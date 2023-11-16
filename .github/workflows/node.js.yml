@@ -11,7 +11,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      working-directory: ./javascript
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
@@ -25,8 +26,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-      working-directory: ./javascript
+      working-directory: ${{env.working-directory}}
     - run: npm run build --if-present
-      working-directory: ./javascript
+      working-directory: ${{env.working-directory}}
     - run: npm test
-      working-directory: ./javascript
+      working-directory: ${{env.working-directory}}
